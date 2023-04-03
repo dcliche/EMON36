@@ -79,8 +79,8 @@ class GUI:
         def draw_inv_char():
             self.draw_text(x, y, char, 0, 0, 0, 0, 255, 0)
 
-        self.draw_text(x, y, "_" * max_nb_characters)  # clear editing zone
-        draw_char()
+        self.draw_text(x, y, "_" * (max_nb_characters + 1))  # clear editing zone
+        draw_inv_char()
         while True:
             # Add character if encoder button is pressed
             if self.button_rot().value() > 0 and len(text) < max_nb_characters:
@@ -92,7 +92,7 @@ class GUI:
             # Remove current character when button a is pressed (BACKSPACE)
             if self.button_a().value() > 0 and len(text) > 0:
                 text = text[:-1]
-                self.draw_text(x, y, " ")
+                self.draw_text(x, y, "_")
                 x -= 1
                 draw_inv_char()
 
@@ -107,7 +107,7 @@ class GUI:
                 last_rot_enc_value = rot_enc_value
                 # print(f'encoder={rot_enc_value}, incr={incr}')
                 char = chr(min(max(ord(char) + incr, 32), 127))
-                draw_char()
+                draw_inv_char()
             await asyncio.sleep(0.1)
         # insert display cleanup
         return text
