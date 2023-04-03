@@ -215,7 +215,9 @@ class EEMON42:
 
     async def screen_saver(self, timeout=10):
         while True:
-            t = time.time() - self.rot_enc.last_time - timeout
+            ti = time.time() 
+            min_interaction_time = min((ti - self.rot_enc.last_time, ti - self.button_rot.last_time, ti - self.button_a.last_time, ti - self.button_b.last_time, ti - self.button_c.last_time))
+            t = min_interaction_time - timeout
             if t > 0:
                 self.display.clear()
             # elif t > 0:
