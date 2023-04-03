@@ -3,7 +3,6 @@ import pygame
 
 class SSD1331:
 
-
     def __init__(self, *args, **kwargs):
         # self.surface = None  # will be defined by set_surface() call.
         pass
@@ -37,3 +36,6 @@ class SSD1331:
             index += 1
             yy += 1
             xx = x
+
+    def write_frame_buffer(self):
+        pass

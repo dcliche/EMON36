@@ -43,7 +43,7 @@ class GUI:
         disp = self._display
         for c in text:
             cc = ord(c) << 3
-            disp.draw_8x8_mono_bitmap2(
+            disp.draw_8x8_mono_bitmap(
                 x * 8, y * 8, font[cc: cc+8], r, g, b, bg_r, bg_g, bg_b)
             x += 1
         disp.write_frame_buffer()
@@ -72,10 +72,12 @@ class GUI:
         last_rot_enc_value = self.rot_enc().value()
         char = 'A'  # current character
         text = ""
+
         def draw_char():
-            self.draw_text(x,y, char, 0, 255, 0)
+            self.draw_text(x, y, char, 0, 255, 0)
+
         def draw_inv_char():
-            self.draw_text(x,y, char, 0, 0, 0, 0, 255, 0)
+            self.draw_text(x, y, char, 0, 0, 0, 0, 255, 0)
 
         self.draw_text(x, y, "_" * max_nb_characters)  # clear editing zone
         draw_char()
@@ -98,7 +100,7 @@ class GUI:
             if self.button_c().value() > 0:
                 break
 
-            # Update selected character when rotary encoder moves 
+            # Update selected character when rotary encoder moves
             rot_enc_value = self.rot_enc().value()
             if rot_enc_value != last_rot_enc_value:
                 incr = rot_enc_value - last_rot_enc_value

@@ -127,28 +127,6 @@ class SSD1331:
             self.write_data([r << 3 | (g & 0b111), (g & 0b111) | b << 3])
 
     def draw_8x8_mono_bitmap(self, x: int, y: int, data: list, r: int = 255, g: int = 255, b: int = 255, bg_r: int = 0, bg_g: int = 0, bg_b: int = 0) -> None:
-        self.set_window(x, y, x + 7, y + 7)
-        index = 0
-        rr = r >> 3
-        gg = g >> 2
-        bb = b >> 3
-        bg_rr = bg_r >> 3
-        bg_gg = bg_g >> 2
-        bg_bb = bg_b >> 3
-        cmds_fg = [rr << 3 | (gg & 0b111), (gg & 0b111) | bb << 3]
-        cmds_bg = [bg_rr << 3 | (bg_gg & 0b111), (bg_gg & 0b111) | bg_bb << 3]
-        for j in range(8):
-            d = data[index]
-            for i in range(8):
-                bit = d & 0x80
-                if bit != 0x00:
-                    self.write_data(cmds_fg)
-                else:
-                    self.write_data(cmds_bg)
-                d <<= 1
-            index += 1
-
-    def draw_8x8_mono_bitmap2(self, x: int, y: int, data: list, r: int = 255, g: int = 255, b: int = 255, bg_r: int = 0, bg_g: int = 0, bg_b: int = 0) -> None:
         """ Writes a 8x8 monochrome bitmap in the frame buffer 
 
 
